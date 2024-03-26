@@ -1,7 +1,7 @@
 import logger from "../utils/logger.js";
 import generator from 'generate-password'
 import { sendBadRequest, sendCreated, sendNotFound, sendServerError, sendSuccess } from "../helpers/helper.functions.js";
-import { findByCredentialsService, getAllEmployeesService, getAllUsersbyGenderService, getLoggedInUserService, registerNewUserService, updateUserService } from "../services/userService.js";
+import { editPositionforAnEmployeeService, editScheduleforAnEmployeeService, findByCredentialsService, getAllEmployeesService, getAllUsersbyGenderService, getLoggedInUserService, registerNewUserService, updateUserService } from "../services/userService.js";
 import * as uuid from 'uuid'
 import { userLoginValidator } from "../validators/user.validators.js";
 import bcrypt from 'bcrypt'
@@ -192,6 +192,55 @@ export const getAllUsersbyGender=async(req, res)=>{
 
     }
     catch(error){
+        sendServerError(res,error.message)
+    }
+}
+
+export const editScheduleforAnEmployee=async(req,res)=>{
+    try {
+             
+         const scheduleDetails={
+            user_id:req.params.user_id,
+            schedule_id:req.body.schedule_id
+         }
+         const result=await editScheduleforAnEmployeeService(scheduleDetails)
+         console.log(result)
+         if(result>0){
+            console.log(result)
+            sendSuccess(res,"update successful")
+         }
+         else{
+            sendServerError(res,"failed to update")
+         }
+         
+        
+    } catch (error) {
+        console.log(error)
+        sendServerError(res,error.message)
+    }
+}
+
+export const editPositionforAnEmployee=async(req,res)=>{
+    try {
+
+         const positionDetails={
+            user_id:req.params.user_id,
+            position_id_id:req.body.position_id
+         }
+         
+         const result=await editPositionforAnEmployeeService(positionDetails)
+         console.log("position update",result)
+         if(result>0){
+            console.log(result)
+            sendSuccess(res,"users position has been  successfully changed")
+         }
+         else{
+            sendServerError(res,"failed to update the position of the employee")
+         }
+         
+        
+    } catch (error) {
+        console.log(error)
         sendServerError(res,error.message)
     }
 }

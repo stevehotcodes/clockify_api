@@ -52,8 +52,8 @@ export const registerNewUserService = async (newUser) => {
 
             BEGIN TRY
                 -- First INSERT statement
-                INSERT INTO tbl_user(user_id, firstname, middlename, lastname, identification_number, gender, marital_status, date_of_birth, email, phone_number, place_of_residence, course_of_study, institution, password, schedule_id, position_id)
-                VALUES(@user_id, @firstname, @middlename, @lastname, @identification_number, @gender, @marital_status, @date_of_birth, @email, @phone_number, @place_of_residence, @course_of_study, @institution, @password, @schedule_id, @position_id);
+                INSERT INTO tbl_user(user_id, firstname, middlename, lastname, identification_number, gender, marital_status, date_of_birth, email, phone_number, place_of_residence, course_of_study, institution, password, schedule_id, position_id, person_name,emergency_phone_number, relationship,language,technical)
+                VALUES(@user_id, @firstname, @middlename, @lastname, @identification_number, @gender, @marital_status, @date_of_birth, @email, @phone_number, @place_of_residence, @course_of_study, @institution, @password, @schedule_id, @position_id, @emergency_person_name,@emergency_phone_number,@relationship,@language,@technical);
             
                 -- Second INSERT statement
                 INSERT INTO employee_skill(id, language, technical, user_id)
@@ -117,7 +117,12 @@ export const getOneEmployeeService=async(user_id)=>{
         
         const result=await poolRequest()
         .input('user_id',mssql.VarChar,user_id)
-        .query(`SELECT * FROM tbl_user WHERE user_id=@user_id`)
+        .query(`
+                 SELECT photo.* tbl_user.*
+                 FROM tbl_user
+                 WHERE user_id=@user_id`
+                 
+                 )
 
         return result.recordset
     }
@@ -133,8 +138,8 @@ export const getAllEmployeesService=async()=>{
         const result=await poolRequest()
         .query(`SELECT tbl_user.*, position.*, schedule.*
         FROM tbl_user
-        JOIN position ON tbl_user.position_id=position.position_id
-        JOIN schedule ON tbl_user.schedule_id=schedule.schedule_id
+        FULL JOIN position ON tbl_user.position_id=position.position_id
+        FULL JOIN schedule ON tbl_user.schedule_id=schedule.schedule_id
         WHERE tbl_user.role='user'
                                
                 `)
@@ -286,3 +291,41 @@ export const getAllUsersbyGenderService=async()=>{
     }
 }
 
+export const editScheduleforAnEmployeeService=async(scheduleDetails)=>{
+    try {    
+           const response=await poolRequest()
+           .input('schedule_id',mssql.VarChar, scheduleDetails.schedule_id)
+          
+           .input('user_id', mssql.VarChar,scheduleDetails.user_id)
+           .query(`
+                UPDATE tbl_user
+                SET schedule_id=@schedule_id 
+                WHERE user_id=@user_id
+        
+           `)
+
+           return response.rowsAffected
+        
+    } catch (error) {
+        return error
+    }
+}
+
+export const editPositionforAnEmployeeService=async(updatedPositionDetails)=>{
+    try {    
+           const response=await poolRequest()
+           .input('position_id',mssql.VarChar, updatedPositionDetails.position_id)
+           .input('user_id', mssql.VarChar,updatedPositionDetails.user_id)
+           .query(`
+                UPDATE tbl_user
+                SET position_id=@position_id
+                WHERE user_id=@user_id 
+        
+           `)
+
+           return response.rowsAffected
+        
+    } catch (error) {
+        return error
+    }
+}

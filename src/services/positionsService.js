@@ -36,7 +36,7 @@ export  const getPositionByNameService=async(position_description)=>{
 export const getAllPositionsService=async()=>{
     try {
          const result =await poolRequest()
-          .query(`SELECT * FROM position`)
+          .query(`SELECT * FROM position WHERE position_description!='Chief Executive Officer'`)
           return result.recordset
 
         

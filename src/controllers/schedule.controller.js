@@ -1,5 +1,5 @@
 import { sendBadRequest, sendCreated, sendNotFound, sendServerError, sendSuccess } from "../helpers/helper.functions.js"
-import { createNewScheduleService, getAShiftByDescriptionService, getAllScheduleService } from "../services/scheduleService.js"
+import { createNewScheduleService, getAShiftByDescriptionService, getAllScheduleService, getEmployeeByScheduleService } from "../services/scheduleService.js"
 import logger from "../utils/logger.js"
 
 
@@ -47,4 +47,23 @@ export const getAllSchedule=async(req,res)=>{
     } catch (error) {
         sendServerError(res,error)
     }
+}
+
+export const getEmployeesBySchedule=async(req,res)=>{
+  try {
+         const {schedule_id}=req.params
+         console.log(schedule_id)
+         const employeesList=await getEmployeeByScheduleService(schedule_id)
+         console.log(employeesList)
+         if(employeesList.length){
+            return res.status(200).json(employeesList)
+         }
+         else{
+          sendNotFound(res, 'records for your selection not found')
+         }
+
+    
+  } catch (error) {
+       sendServerError(res, error.message)
+  }
 }

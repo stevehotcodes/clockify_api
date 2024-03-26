@@ -68,7 +68,12 @@ export const getAttendanceforAUserService=async(user_id)=>{
     try{
          const result=await poolRequest()
          .input('user_id',mssql.VarChar,user_id)
-         .query(`SELECT * FROM attendance WHERE user_id=@user_id`)
+         .query(`
+            SELECT attendance.*, tbl_user.*
+            FROM attendance
+            INNER JOIN tbl_user ON tbl_user.user_id = attendance.user_id
+            WHERE attendance.user_id = @user_id
+`)
 
          return result.recordset
     }

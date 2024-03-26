@@ -10,11 +10,11 @@ export const createTimeIn=async(req,res)=>{
 
             const user_id=req.params.user_id
             const user=await getUserById(user_id);
-            // console.log("user",user[0])
+            console.log("user",user[0])
             const currentDate = new Date()
             currentDate.setUTCHours(currentDate.getUTCHours() + 3);
             // currentDate.toISOString().split('T')[0]
-            console.log(currentDate)
+            console.log(currentDate.getDate())
 
             if(user[0]){
                 const checkIn=await getcheckInService(user_id)

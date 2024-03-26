@@ -20,9 +20,14 @@ CREATE TABLE tbl_user(
     employed_on DATETIME DEFAULT 0,
     role VARCHAR (MAX) DEFAULT 'user',
     password VARCHAR(MAX) DEFAULT 'no password',
+    language VARCHAR(MAX) DEFAULT 'no language',
+    technical VARCHAR (MAX) DEFAULT 'no technicl skill',
     isWelcomed INT DEFAULT 0,
     isPasswordChange INT DEFAULT 0,
     isDeleted INT DEFAULT 0,
+    person_name VARCHAR(MAX) DEFAULT 'no name',
+    emergency_phone_number INT DEFAULT 'no number',
+    relationship VARCHAR(MAX) DEFAULT 'no relationship',
     position_id VARCHAR(300) FOREIGN KEY REFERENCES position (position_id),
     schedule_id  VARCHAR(300) FOREIGN KEY REFERENCES schedule(schedule_id)
 

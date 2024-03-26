@@ -46,3 +46,59 @@ export const getAShiftByDescriptionService=async(schedule_description)=>{
         return error
     }
 }
+
+export const getEmployeeByScheduleService=async(schedule_id)=>{
+    try {
+         const result=await poolRequest()
+         .input('schedule_id', mssql.VarChar,schedule_id)
+         .query(`
+         SELECT 
+         u.user_id,
+         u.firstname,
+         u.lastname,
+         s.schedule_id as schedule_id,
+         s.in_time AS schedule_in_time,
+         s.out_time AS schedule_out_time,
+         last_clock_in.time_in AS last_clock_in_time,
+         last_clock_out.time_out AS last_clock_out_time
+         
+     FROM 
+         tbl_user u
+     JOIN 
+         schedule s ON u.schedule_id = s.schedule_id
+     LEFT JOIN 
+         (
+             SELECT 
+                 user_id,
+                 MAX(time_in) AS time_in
+     
+             FROM 
+                 attendance a
+             
+             GROUP BY 
+                 user_id
+         ) AS last_clock_in ON u.user_id = last_clock_in.user_id
+     LEFT JOIN 
+         (
+             SELECT 
+                 user_id,
+                 MAX(time_out) AS time_out
+             FROM 
+                 attendance
+             GROUP BY 
+                 user_id
+         ) AS last_clock_out ON u.user_id = last_clock_out.user_id
+     
+     WHERE 
+         u.schedule_id = @schedule_id     
+     
+     
+     
+         `)
+
+         return result.recordset
+        
+    } catch (error) {
+        return error
+    }
+}
