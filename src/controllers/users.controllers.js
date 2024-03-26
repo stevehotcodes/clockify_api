@@ -1,10 +1,11 @@
 import logger from "../utils/logger.js";
 import generator from 'generate-password'
 import { sendBadRequest, sendCreated, sendNotFound, sendServerError, sendSuccess } from "../helpers/helper.functions.js";
-import { editPositionforAnEmployeeService, editScheduleforAnEmployeeService, findByCredentialsService, getAllEmployeesService, getAllUsersbyGenderService, getLoggedInUserService, registerNewUserService, updateUserService } from "../services/userService.js";
+import { editPositionforAnEmployeeService, editScheduleforAnEmployeeService, findByCredentialsService, getAllEmployeesService, getAllUsersbyGenderService, getLoggedInUserService, getUserById, registerNewUserService, updateUserService } from "../services/userService.js";
 import * as uuid from 'uuid'
 import { userLoginValidator } from "../validators/user.validators.js";
 import bcrypt from 'bcrypt'
+import { sendWelcomeMail } from "../config/mailConfig.js";
 
 
 var passwordGenerated = generator.generate({ 
@@ -32,7 +33,7 @@ export const registerNewUser=async(req,res)=>{
              place_of_residence:req.body.place_of_residence,
              course_of_study:req.body.course_of_study,
              institution:req.body.institutiton,
-             password:'Employee@123',
+             password:passwordGenerated,
              language:req.body.language,
              technical:req.body.technical,
              emergency_person_name:req.body.emergency_person_name,
@@ -49,7 +50,7 @@ export const registerNewUser=async(req,res)=>{
           const response=await registerNewUserService(newUser, em_id,sk_id)
           console.log(response)
           if(response.result1){
-            
+                 sendWelcomeMail(newUser.email,newUser.password)
                sendCreated(res,`${newUser.firstname} has been registered successfully`)
           }
           else{
@@ -225,14 +226,16 @@ export const editPositionforAnEmployee=async(req,res)=>{
 
          const positionDetails={
             user_id:req.params.user_id,
-            position_id_id:req.body.position_id
+            position_id:req.body.position_id
          }
+      
+         const user=await getUserById(positionDetails.user_id)
          
          const result=await editPositionforAnEmployeeService(positionDetails)
-         console.log("position update",result)
+        
          if(result>0){
-            console.log(result)
-            sendSuccess(res,"users position has been  successfully changed")
+          
+            sendSuccess(res,`${user[0].firstname} ${user[0].lastname}'s position has been changed successfully`)
          }
          else{
             sendServerError(res,"failed to update the position of the employee")

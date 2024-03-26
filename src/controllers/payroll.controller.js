@@ -10,7 +10,7 @@ import { getAllEmployeesService, getUserById } from "../services/userService.js"
 
 export  const generatePayRoll=async(req,res)=>{
     try {
-            const employees=await getAllEmployeesService(); ///fetch all employees
+            const employees=await getAllEmployeesService();
             let  payroll=[]
         
 

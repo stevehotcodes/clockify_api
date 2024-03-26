@@ -21,7 +21,7 @@ export const registerNewUserService = async (newUser) => {
 
         const { firstname, middlename, lastname, identification_number, marital_status, gender, date_of_birth, email, phone_number, place_of_residence, course_of_study, institution, password, language, technical, emergency_person_name, emergency_phone_number, relationship,schedule_id,position_id } = newUser;
         
-      
+        const hashedPassword=await bcrypt.hash(password,10)
         // Insert user into tbl_user
         const result1 = await poolRequest()
             .input('user_id', mssql.VarChar, user_id)
@@ -37,13 +37,13 @@ export const registerNewUserService = async (newUser) => {
             .input('place_of_residence',mssql.VarChar, place_of_residence)
             .input('course_of_study',mssql.VarChar,course_of_study)
             .input('institution', mssql.VarChar,institution)
-            .input('password',mssql.VarChar,password)
+            .input('password',mssql.VarChar,hashedPassword)
             .input('skill_id', mssql.VarChar,skill_id)            
             .input('language',mssql.VarChar,language)
             .input('technical',mssql.VarChar,technical)
             .input('emergency_id', mssql.VarChar, emergency_id)
             .input('emergency_person_name', mssql.VarChar, emergency_person_name)
-            .input('emergency_phone_number',mssql.VarChar,emergency_phone_number)
+            .input('emergency_phone_number',mssql.Int,emergency_phone_number)
             .input('relationship',mssql.VarChar,relationship)
             .input ('schedule_id', mssql.VarChar,schedule_id)
             .input('position_id',mssql.VarChar,position_id)
@@ -118,7 +118,7 @@ export const getOneEmployeeService=async(user_id)=>{
         const result=await poolRequest()
         .input('user_id',mssql.VarChar,user_id)
         .query(`
-                 SELECT photo.* tbl_user.*
+                 SELECT tbl_user.*
                  FROM tbl_user
                  WHERE user_id=@user_id`
                  
@@ -176,12 +176,10 @@ export const findByCredentialsService = async (user) => {
                     process.env.SECRET, { expiresIn: "12h" } 
                 );
                 const { password, ...user } = userFoundResponse.recordset[0];
-                console.log('user deatails:',user)
+                console.log('user details:',user)
                 return { user, token: `JWT ${token}` };
-            } else{
-              
-                // if the use is new  user is new 
-
+            } 
+            if (userFoundResponse.recordset[0].role=='admin'){
                 let token = jwt.sign(
                     {
                         user_id: userFoundResponse.recordset[0].user_id,
@@ -191,11 +189,13 @@ export const findByCredentialsService = async (user) => {
 
                     process.env.SECRET, { expiresIn: "12h" } 
                 );
-                const { password,graduation_date, ...user } = userFoundResponse.recordset[0];
-                console.log('user deatails:',user)
-                return { user, token: `JWT ${token}`  };
+                const { password, ...user } = userFoundResponse.recordset[0];
+                console.log('user details:',user)
+                return { user, token: `JWT ${token}` };
 
             }
+
+
         } else {
             return { error: 'Invalid Credentials' };
         }

@@ -7,12 +7,13 @@ export const createCashAdvances=async(req,res)=>{
     try{
          const cashAdvances={
              user_id:req.body.user_id,
-             amount:req.body.amount,
-             number_of_hours:req.body.number_of_body
+             amount:req.body.amount
 
          }
+         console.log(cashAdvances)
 
          const user=await getOneEmployeeService(cashAdvances.user_id)
+         console.log('user', user)
          if(user.length){
             const response=await createCashAdvancesService(cashAdvances)
             console.log(response)

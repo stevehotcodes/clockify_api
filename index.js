@@ -21,7 +21,7 @@ dotenv.config()
 
 var corsOptions = {
     origin: 'http://localhost:5173',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 200 
 }
 
 
@@ -52,7 +52,11 @@ app.use('/api',overtimeRouter)
 app.use('/api',payrollRouter)
 app.use('/api',attendanceRouter)
 app.use('/api',photoRouter)
-// console.log('the password is :',passcode);
+
+
+
+
+
 cron.schedule('*/10 * * * * *', async() => {
 
     // logger.info("sending email after every five seconds ...............");
