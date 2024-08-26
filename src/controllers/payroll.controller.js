@@ -40,7 +40,7 @@ export  const generatePayRoll=async(req,res)=>{
             console.log("this is the payroll", payroll)
 
             
-            // return res.status(200).json(payroll)
+            return res.status(200).json(payroll)
         
     } catch (error) {
         // return res.status(500).json("Error in creating the payroll")

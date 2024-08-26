@@ -1,0 +1,11 @@
+DELETE FROM photo
+DELETE FROM overtime
+DELETE FROM attendance
+DELETE FROM employee_skill
+DELETE FROM emergency_contact
+DELETE FROM cash_advances
+DELETE FROM payroll
+DELETE FROM deductions
+DELETE FROM tbl_user
+DELETE  FROM position
+DELETE FROM schedule
