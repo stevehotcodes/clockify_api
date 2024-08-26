@@ -1,6 +1,35 @@
 -- CREATE DATABASE Clockify
 USE Clockify
 
+---create schedules table 
+
+CREATE TABLE schedule(
+    schedule_id VARCHAR(300) PRIMARY KEY,
+    in_time TIME,
+    out_time TIME,
+     created_at DATETIME DEFAULT GETDATE()
+    
+)
+
+--confirm creation of schedule table
+SELECT * FROM schedule 
+
+---create posititons table 
+
+CREATE TABLE position(
+    position_id VARCHAR(300) PRIMARY KEY,
+    position_description VARCHAR(MAX) DEFAULT 'no position',
+    gross_salary INT  DEFAULT 0,
+
+)
+
+--insert position records
+
+
+---confirm creation of position table
+SELECT * FROM position
+
+
 ---create  user table 
 CREATE TABLE tbl_user(
     user_id VARCHAR(300) PRIMARY KEY,
@@ -31,37 +60,21 @@ CREATE TABLE tbl_user(
     position_id VARCHAR(300) FOREIGN KEY REFERENCES position (position_id),
     schedule_id  VARCHAR(300) FOREIGN KEY REFERENCES schedule(schedule_id)
 
-
 )
+
+--confirm creation of table user
 
 SELECT * FROM tbl_user
----create posititons table 
-CREATE TABLE position(
-    position_id VARCHAR(300) PRIMARY KEY,
-    position_description VARCHAR(MAX) DEFAULT 'no position',
-    gross_salary INT  DEFAULT 0,
 
-
-)
-
----create schedules table 
-
-CREATE TABLE schedule(
-    schedule_id VARCHAR(300) PRIMARY KEY,
-    in_time TIME ,
-    out_time TIME ,
-     created_at DATETIME DEFAULT GETDATE()
-    
-)
-
-
+---create employee schedule table
 CREATE TABLE employee_schedule(
      id VARCHAR(300) PRIMARY KEY,
      schedule_id VARCHAR(300) FOREIGN KEY REFERENCES schedule(schedule_id),
      user_id  VARCHAR(300)  FOREIGN KEY REFERENCES tbl_user(user_id)
 )
+---confirm creation of employee schedule table
+SELECT * FROM employee_schedule
 
- 
 ---create employee skills table
 CREATE TABLE employee_skill(
     id VARCHAR(300) PRIMARY KEY,
@@ -70,6 +83,9 @@ CREATE TABLE employee_skill(
     user_id VARCHAR(300)  FOREIGN KEY REFERENCES tbl_user (user_id)
 
 )
+
+--confirm creation of employee skills table 
+SELECT * FROM employee_skill 
 
 
 ---create photo table
@@ -80,7 +96,8 @@ CREATE TABLE photo(
     user_id VARCHAR(300)  FOREIGN KEY REFERENCES tbl_user(user_id)
 
 )
-
+---confirm creation of photo table 
+SELECT * FROM photo
 
 ----create emergency contact table 
 CREATE TABLE emergency_contact(
@@ -90,7 +107,11 @@ CREATE TABLE emergency_contact(
     relationship VARCHAR(MAX) DEFAULT 'no relationship',
     user_id  VARCHAR(300)  FOREIGN KEY REFERENCES tbl_user (user_id)
 )
----------deductions table
+
+---confirm creation of  emergency contact table 
+SELECT * FROM emergency_contact
+
+--- create deductions table
 CREATE TABLE deductions(
 deduction_id VARCHAR(300) PRIMARY KEY,
 description VARCHAR(300),
@@ -98,6 +119,9 @@ amount DECIMAL(10,2),
 user_id VARCHAR(300) FOREIGN KEY REFERENCES tbl_user (user_id),
 created_on DATETIME DEFAULT GETDATE()
 )
+
+--confirm deductions table
+SELECT * FROM deductions
 
 ---create cash advances table 
 CREATE TABLE cash_advances(
@@ -107,6 +131,8 @@ CREATE TABLE cash_advances(
     created_on DATETIME DEFAULT GETDATE()
 )
 
+--confirm creation of advances table
+SELECT * FROM cash_advances
 
 -----create overtime table
 CREATE TABLE overtime (
@@ -116,6 +142,9 @@ CREATE TABLE overtime (
     created_on DATETIME DEFAULT GETDATE(),
     user_id VARCHAR (300)  FOREIGN KEY REFERENCES tbl_user (user_id)
 )
+
+---confirm creation of overtime 
+SELECT * FROM overtime 
 
 ------create payroll table 
 CREATE TABLE payroll(
@@ -129,6 +158,9 @@ user_id VARCHAR(300) FOREIGN KEY REFERENCES tbl_user(user_id),
 created_on DATETIME DEFAULT GETDATE()
 )
 
+---confirm creation of payroll
+SELECT * FROM payroll 
+
 -----create table attendance
 CREATE  TABLE attendance(
 attendance_id VARCHAR (300) PRIMARY KEY,
@@ -139,6 +171,9 @@ reporting_state VARCHAR (300),
 user_id VARCHAR(300) FOREIGN KEY REFERENCES tbl_user(user_id)
 
 );
+
+---confirm creation of attendance 
+SELECT * FROM attendance
 
 ALTER TABLE attendance
 ADD CONSTRAINT unique_employee_date UNIQUE (user_id, date);

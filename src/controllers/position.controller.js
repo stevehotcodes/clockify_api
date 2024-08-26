@@ -14,30 +14,41 @@ export const createNewPosition=async(req, res)=>{
                gross_salary:req.body.gross_salary
            } 
 
+          console.log(positionDetails)
            const position=await getPositionByNameService(positionDetails.position_description)
+           console.log(position)
+          
            if(position.length>0){
-              sendBadRequest(res,`${positionDetails.position_description} position already exists `)
-           }
+                    if( position[0].position_description===positionDetails.position_description){
+                        sendBadRequest(res,`${positionDetails.position_description} position already exists `)
+                    }
+           }  
            else{
-            if(positionDetails.position_description=='' || positionDetails.gross_salary==''){
-                sendBadRequest(res,'input for all fields is required')                          //validators
-              
-           }
-           else{
-                const response=await createNewPositionService(positionDetails)
-                logger.info(response)
-                if(response.rowsAffected>0){
-                    sendCreated(res,`${req.body.position_description} created successfully`)
+            
+                if(positionDetails.position_description=='' || positionDetails.gross_salary==''){
+                        sendBadRequest(res,'input for all fields is required')  //validators
+                    
+                    }
+                else{
+                        const response=await createNewPositionService(positionDetails)
+                        logger.info(response)
+                        if(response.rowsAffected>0){
+                            sendCreated(res,`${req.body.position_description} created successfully`)
+                        }
+                    
                 }
-              
-           }
 
-           }
+           }       
+             
+           
+           
+
  
 
           
         
     } catch (error) {
+        console.log(error)
         sendServerError(res,error)
     }
 }
