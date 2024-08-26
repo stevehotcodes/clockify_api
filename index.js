@@ -16,14 +16,17 @@ import payrollRouter from './src/routes/payrollRoutes.js'
 import { generatePayRoll } from './src/controllers/payroll.controller.js'
 import attendanceRouter from './src/routes/attendanceRoute.js'
 import photoRouter from './src/routes/photoRoute.js'
+import swaggerUI from 'swagger-ui-express'
+import YAML from 'yamljs'
+
+
 dotenv.config()
-
-
+const swaggerJsDocs=YAML.load('./src/docs/api.yaml')
+console.log(swaggerJsDocs)
 var corsOptions = {
     origin: 'http://localhost:5173',
     optionsSuccessStatus: 200 
 }
-
 
 
 
@@ -33,6 +36,8 @@ const port =process.env.API_PORT || 3000
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(cors())
+//setting up the swagger docs
+app.use('/docs',swaggerUI.serve ,swaggerUI.setup(swaggerJsDocs))
 
 
 app.get('/health',(req,res)=>{
