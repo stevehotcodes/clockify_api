@@ -28,10 +28,7 @@ var corsOptions = {
 
 
 const app=express()
-const port =process.env.API_PORT 
-
-
-
+const port =process.env.API_PORT || 3000
 //configuring the middlewares
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))

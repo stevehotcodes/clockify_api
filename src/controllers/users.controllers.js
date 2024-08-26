@@ -33,7 +33,7 @@ export const registerNewUser=async(req,res)=>{
              place_of_residence:req.body.place_of_residence,
              course_of_study:req.body.course_of_study,
              institution:req.body.institutiton,
-             password:passwordGenerated,
+             password:'Employee@123',
              language:req.body.language,
              technical:req.body.technical,
              emergency_person_name:req.body.emergency_person_name,
@@ -85,12 +85,14 @@ export const getAllEmployees=async(req,res)=>{
 
 export const loginUser = async (req, res) => {
     const { email, password } = req.body;
+    console.log("login req body",req.body)
     const { error } = userLoginValidator({ email, password });
     if (error) {
         return res.status(400).send(error.details[0].message);
     } else {
         try {
-            const userResponse = await findByCredentialsService({ email, password });
+            const userResponse = await findByCredentialsService(req.body);
+            console.log("user response form the find user service", userResponse)
             if (userResponse.error) {
                 // notAuthorized(res, userResponse.error);
                 return res.status(400).json(userResponse.error)

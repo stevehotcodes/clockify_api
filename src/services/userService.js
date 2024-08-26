@@ -52,8 +52,8 @@ export const registerNewUserService = async (newUser) => {
 
             BEGIN TRY
                 -- First INSERT statement
-                INSERT INTO tbl_user(user_id, firstname, middlename, lastname, identification_number, gender, marital_status, date_of_birth, email, phone_number, place_of_residence, course_of_study, institution, password, schedule_id, position_id, person_name,emergency_phone_number, relationship,language,technical)
-                VALUES(@user_id, @firstname, @middlename, @lastname, @identification_number, @gender, @marital_status, @date_of_birth, @email, @phone_number, @place_of_residence, @course_of_study, @institution, @password, @schedule_id, @position_id, @emergency_person_name,@emergency_phone_number,@relationship,@language,@technical);
+                INSERT INTO tbl_user(user_id, firstname, middlename, lastname, identification_number, gender, marital_status, date_of_birth, email, phone_number, place_of_residence, course_of_study, institution, password, schedule_id, position_id)
+                VALUES(@user_id, @firstname, @middlename, @lastname, @identification_number, @gender, @marital_status, @date_of_birth, @email, @phone_number, @place_of_residence, @course_of_study, @institution, @password, @schedule_id, @position_id);
             
                 -- Second INSERT statement
                 INSERT INTO employee_skill(id, language, technical, user_id)
@@ -152,19 +152,32 @@ export const getAllEmployeesService=async()=>{
 }
 
 export const findByCredentialsService = async (user) => {
+    console.log("this is the user details from the req body passed from the controller", user)
+    
     try {
+        const {email,password}=user
+        console.log("user email", email)
         const userFoundResponse = await poolRequest()
-            .input('email', mssql.VarChar, user.email)
-            .query(` SELECT tbl_user.*, position.*, schedule.*
-                     FROM tbl_user
-                     JOIN position ON position.position_id=tbl_user.position_id
-                     JOIN schedule ON schedule.schedule_id=tbl_user.schedule_id                    
-                     WHERE tbl_user.email = @email`);
-            console.log(userFoundResponse)
-        if (userFoundResponse.recordset[0]) {
+                    .input('email', mssql.VarChar, email)
+                    .query(`SELECT *
+                     FROM tbl_user                                       
+                     WHERE email = @email`);
+            console.log("these are user's details",userFoundResponse)
+        if (userFoundResponse.recordset.length>0) {
 
 
-            if (await bcrypt.compare(user.password, userFoundResponse.recordset[0].password)) {
+            const userFound = userFoundResponse.recordset[0];
+
+            // Compare provided password with the hashed password from the database
+            const isPasswordMatch = await bcrypt.compare(password, userFound.password)
+        
+
+            if (!isPasswordMatch) {
+                return { error: 'Password Mismatch' };
+            }
+
+           
+            if (await bcrypt.compare(user.password, userFoundResponse.recordset[0].password=='Employee')) {
 
                 let token = jwt.sign(
                     {
@@ -173,7 +186,24 @@ export const findByCredentialsService = async (user) => {
                         email: userFoundResponse.recordset[0].email
                     },
 
-                    process.env.SECRET, { expiresIn: "12h" } 
+                    process.env.SECRET || 'jeyeydgyd', { expiresIn: "12h" } 
+                );
+                const { password, ...user } = userFoundResponse.recordset[0];
+                console.log('user details:',user)
+                return { user, token: `JWT ${token}` };
+            } 
+            
+
+           if (await bcrypt.compare(user.password, userFoundResponse.recordset[0].password)) {
+
+                let token = jwt.sign(
+                    {
+                        user_id: userFoundResponse.recordset[0].user_id,
+                        firstname: userFoundResponse.recordset[0].firstname,
+                        email: userFoundResponse.recordset[0].email
+                    },
+
+                    process.env.SECRET || 'jeyeydgyd', { expiresIn: "12h" } 
                 );
                 const { password, ...user } = userFoundResponse.recordset[0];
                 console.log('user details:',user)
@@ -187,7 +217,7 @@ export const findByCredentialsService = async (user) => {
                         email: userFoundResponse.recordset[0].email
                     },
 
-                    process.env.SECRET, { expiresIn: "12h" } 
+                    process.env.SECRET || 'jeyeydgyd', { expiresIn: "12h" } 
                 );
                 const { password, ...user } = userFoundResponse.recordset[0];
                 console.log('user details:',user)
@@ -205,6 +235,35 @@ export const findByCredentialsService = async (user) => {
     }
 
 }
+
+
+export const findUserByEmailService=async(email)=>{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const getUserById=async(user_id)=>{
     try {
