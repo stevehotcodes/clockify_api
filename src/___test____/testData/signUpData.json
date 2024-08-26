@@ -1,0 +1,20 @@
+{
+    "firstname":"Senior",
+    "middlename":"Software",
+    "lastname":"Developer",
+    "identification_number":"88890723",
+    "gender":"Male",
+    "marital_status":"single",
+    "date_of_birth":"12/12/1997",
+    "email":"user@gmail.com",
+    "phone_number":"0790670765",
+    "place_of_residence":"Nyeri",
+    "course_of_study":"Bachelor of Science in Mathematics and Computer Science",
+    "institutiton":"Muranga university",
+    "language":"English and French",
+    "technical":"angular, react",
+    "emergency_person_name":"Andy Chris",
+    "emergency_phone_number":"0790670546",
+    "relationship":"friend"
+
+ }

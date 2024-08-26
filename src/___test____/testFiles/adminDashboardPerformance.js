@@ -1,5 +1,7 @@
 import http from 'k6/http'
 import{sleep,check} from 'k6'
+import { CONTENT_TYPE,BASE_URL } from '../config/environment.variable'
+
 
 export let options={
     vus:20,
@@ -12,15 +14,15 @@ export default function () {
 
     const params={
         headers:{
-            'Content-Type':'application/json'
+            'Content-Type':`${CONTENT_TYPE}`
         }
     }
 
 
-let response= http.get("http://localhost:3000/api/attendance/user/6713fc4a-70fd-4497-9a2a-1f94442f50bf",params)
+let response= http.get(`${BASE_URL}/user`,params)
  
 check(response,{
-    'is status 200?':(r)=>r.status==200
+    'is status 200?':(response)=>response.status==200
  
 })
 
