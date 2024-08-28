@@ -10,5 +10,3 @@ export const userLoginValidator=({email,password})=>{
     })
     return userSchema.validate({email,password});
 }
-
-// export const useRegistrationValidator=({firn})

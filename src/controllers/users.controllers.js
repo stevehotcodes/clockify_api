@@ -1,17 +1,12 @@
 import logger from "../utils/logger.js";
 import generator from 'generate-password'
 import { sendBadRequest, sendCreated, sendNotFound, sendServerError, sendSuccess } from "../helpers/helper.functions.js";
-import { editPositionforAnEmployeeService, editScheduleforAnEmployeeService, findByCredentialsService, getAllEmployeesService, getAllUsersbyGenderService, getLoggedInUserService, getUserById, registerNewUserService, updateUserService } from "../services/userService.js";
+import { editPositionforAnEmployeeService, editScheduleforAnEmployeeService, findByCredentialsService, findUserByEmailService, getAllEmployeesService, getAllUsersbyGenderService, getLoggedInUserService, getUserById, registerNewUserService, updateUserService } from "../services/userService.js";
 import * as uuid from 'uuid'
 import { userLoginValidator } from "../validators/user.validators.js";
 import bcrypt from 'bcrypt'
 import { sendWelcomeMail } from "../config/mailConfig.js";
-
-
-var passwordGenerated = generator.generate({ 
-    length: 10, 
-    numbers: true
-}); 
+import data from '../data/data.json' assert { type: 'json' };
 
 
 
@@ -33,7 +28,7 @@ export const registerNewUser=async(req,res)=>{
              place_of_residence:req.body.place_of_residence,
              course_of_study:req.body.course_of_study,
              institution:req.body.institutiton,
-             password:'Employee@123',
+             password:data.newUserPassword,
              language:req.body.language,
              technical:req.body.technical,
              emergency_person_name:req.body.emergency_person_name,
@@ -41,22 +36,25 @@ export const registerNewUser=async(req,res)=>{
              relationship:req.body.relationship,
              schedule_id:req.body.schedule_id,
              position_id:req.body.position_id
-
-
           }
           
-
-
-          const response=await registerNewUserService(newUser, em_id,sk_id)
-          console.log(response)
-          if(response.result1){
-                 sendWelcomeMail(newUser.email,newUser.password)
-               sendCreated(res,`${newUser.firstname} has been registered successfully`)
-          }
+          const registeredEmail=await findUserByEmailService(newUser.email)
+        
+          if(registeredEmail.length > 0 && registeredEmail[0].email === newUser.email){ 
+            sendBadRequest(res,`Email is already registered`) 
+           } 
           else{
-              sendBadRequest(res,`${newUser.firstname} records exists, or email assocaited with the person already exists kindly confirm the email and/or passport number or id no `)
+            const response=await registerNewUserService(newUser, em_id,sk_id)
+     
+            if(response&&response.result1){
+      
+                 sendCreated(res,`${newUser.firstname} has been registered successfully`)
+                 sendWelcomeMail(newUser.email,newUser.password)
+            }
+            else{
+                sendBadRequest(res,`${newUser.firstname} records exists, or email assocaited with the person already exists kindly confirm the email and/or passport number or id no `)
+            }
           }
-
         
     } catch (error) {
         logger.error(error)
@@ -94,7 +92,6 @@ export const loginUser = async (req, res) => {
             const userResponse = await findByCredentialsService(req.body);
             console.log("user response form the find user service", userResponse)
             if (userResponse.error) {
-                // notAuthorized(res, userResponse.error);
                 return res.status(400).json(userResponse.error)
             } else {
 

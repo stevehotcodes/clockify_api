@@ -4,7 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-<<<<<<< HEAD
 importers:
 
   .:
@@ -66,78 +65,15 @@ importers:
       pino-pretty:
         specifier: ^10.3.1
         version: 10.3.1
+      swagger-ui-express:
+        specifier: ^5.0.1
+        version: 5.0.1(express@4.18.3)
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
-=======
-dependencies:
-  axios:
-    specifier: ^1.6.8
-    version: 1.6.8
-  bcrypt:
-    specifier: ^5.1.1
-    version: 5.1.1
-  body-parser:
-    specifier: ^1.20.2
-    version: 1.20.2
-  cors:
-    specifier: ^2.8.5
-    version: 2.8.5
-  dotenv:
-    specifier: ^16.4.5
-    version: 16.4.5
-  ejs:
-    specifier: ^3.1.9
-    version: 3.1.9
-  env:
-    specifier: ^0.0.2
-    version: 0.0.2
-  express:
-    specifier: ^4.18.3
-    version: 4.18.3
-  generate-password:
-    specifier: ^1.7.1
-    version: 1.7.1
-  generator:
-    specifier: ^1.0.1
-    version: 1.0.1
-  joi:
-    specifier: ^17.12.2
-    version: 17.12.2
-  jsonwebtoken:
-    specifier: ^9.0.2
-    version: 9.0.2
-  mssql:
-    specifier: ^10.0.2
-    version: 10.0.2
-  multer:
-    specifier: 1.4.5-lts.1
-    version: 1.4.5-lts.1
-  node-cron:
-    specifier: ^3.0.3
-    version: 3.0.3
-  nodemailer:
-    specifier: ^6.9.12
-    version: 6.9.12
-  nodemon:
-    specifier: ^3.1.0
-    version: 3.1.0
-  pino:
-    specifier: ^8.19.0
-    version: 8.19.0
-  pino-pretty:
-    specifier: ^10.3.1
-    version: 10.3.1
-  swagger-ui-express:
-    specifier: ^5.0.1
-    version: 5.0.1(express@4.18.3)
-  uuid:
-    specifier: ^9.0.1
-    version: 9.0.1
-  yamljs:
-    specifier: ^0.3.0
-    version: 0.3.0
->>>>>>> 2916bc9 (add API documentation)
+      yamljs:
+        specifier: ^0.3.0
+        version: 0.3.0
 
 packages:
 
@@ -276,6 +212,9 @@ packages:
   are-we-there-yet@2.0.0:
     resolution: {integrity: sha512-Ci/qENmwHnsYo9xKIcUJN5LeDKdJ6R1Z1j9V/J5wyq8nh/mYPEpIKJbBZXtZjG04HiK7zV/p6Vs9952MrMeUIw==}
     engines: {node: '>=10'}
+
+  argparse@1.0.10:
+    resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
 
   array-buffer-byte-length@1.0.1:
     resolution: {integrity: sha512-ahC5W1xgou+KTXix4sAO8Ki12Q+jf4i0+tmk3sC+zgcynshkHxzpXdImBehiUYKKKDwvfFiJl1tZt6ewscS1Mg==}
@@ -1337,6 +1276,9 @@ packages:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
     engines: {node: '>= 10.x'}
 
+  sprintf-js@1.0.3:
+    resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
+
   sprintf-js@1.1.3:
     resolution: {integrity: sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA==}
 
@@ -1394,6 +1336,15 @@ packages:
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
+
+  swagger-ui-dist@5.17.14:
+    resolution: {integrity: sha512-CVbSfaLpstV65OnSjbXfVd6Sta3q3F7Cj/yYuvHMp1P90LztOLs6PfUnKEVAeiIVQt9u2SaPwv0LiH/OyMjHRw==}
+
+  swagger-ui-express@5.0.1:
+    resolution: {integrity: sha512-SrNU3RiBGTLLmFU8GIJdOdanJTl4TOmT27tt3bWWHppqYmAZ6IDuEuBvMU6nZq0zLEe6b/1rACXCgLZqO6ZfrA==}
+    engines: {node: '>= v0.10.32'}
+    peerDependencies:
+      express: '>=4.0.0 || >=5.0.0-beta'
 
   tar@6.2.0:
     resolution: {integrity: sha512-/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==}
@@ -1534,6 +1485,10 @@ packages:
 
   yallist@4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
+
+  yamljs@0.3.0:
+    resolution: {integrity: sha512-C/FsVVhht4iPQYXOInoxUM/1ELSf9EsgKH34FofQOp6hwCPrW4vG4w5++TED3xRUo8gD7l0P1J1dLlDYzODsTQ==}
+    hasBin: true
 
 snapshots:
 
@@ -1736,19 +1691,11 @@ snapshots:
       delegates: 1.0.0
       readable-stream: 3.6.2
 
-<<<<<<< HEAD
-  array-buffer-byte-length@1.0.1:
-=======
-  /argparse@1.0.10:
-    resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
+  argparse@1.0.10:
     dependencies:
       sprintf-js: 1.0.3
-    dev: false
 
-  /array-buffer-byte-length@1.0.1:
-    resolution: {integrity: sha512-ahC5W1xgou+KTXix4sAO8Ki12Q+jf4i0+tmk3sC+zgcynshkHxzpXdImBehiUYKKKDwvfFiJl1tZt6ewscS1Mg==}
-    engines: {node: '>= 0.4'}
->>>>>>> 2916bc9 (add API documentation)
+  array-buffer-byte-length@1.0.1:
     dependencies:
       call-bind: 1.0.7
       is-array-buffer: 3.0.4
@@ -2963,17 +2910,9 @@ snapshots:
 
   split2@4.2.0: {}
 
-<<<<<<< HEAD
-  sprintf-js@1.1.3: {}
-=======
-  /sprintf-js@1.0.3:
-    resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
-    dev: false
+  sprintf-js@1.0.3: {}
 
-  /sprintf-js@1.1.3:
-    resolution: {integrity: sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA==}
-    dev: false
->>>>>>> 2916bc9 (add API documentation)
+  sprintf-js@1.1.3: {}
 
   stack-trace@0.0.10: {}
 
@@ -3033,27 +2972,14 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-<<<<<<< HEAD
-  tar@6.2.0:
-=======
-  /swagger-ui-dist@5.17.14:
-    resolution: {integrity: sha512-CVbSfaLpstV65OnSjbXfVd6Sta3q3F7Cj/yYuvHMp1P90LztOLs6PfUnKEVAeiIVQt9u2SaPwv0LiH/OyMjHRw==}
-    dev: false
+  swagger-ui-dist@5.17.14: {}
 
-  /swagger-ui-express@5.0.1(express@4.18.3):
-    resolution: {integrity: sha512-SrNU3RiBGTLLmFU8GIJdOdanJTl4TOmT27tt3bWWHppqYmAZ6IDuEuBvMU6nZq0zLEe6b/1rACXCgLZqO6ZfrA==}
-    engines: {node: '>= v0.10.32'}
-    peerDependencies:
-      express: '>=4.0.0 || >=5.0.0-beta'
+  swagger-ui-express@5.0.1(express@4.18.3):
     dependencies:
       express: 4.18.3
       swagger-ui-dist: 5.17.14
-    dev: false
 
-  /tar@6.2.0:
-    resolution: {integrity: sha512-/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==}
-    engines: {node: '>=10'}
->>>>>>> 2916bc9 (add API documentation)
+  tar@6.2.0:
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
@@ -3225,18 +3151,9 @@ snapshots:
 
   xtend@4.0.2: {}
 
-<<<<<<< HEAD
   yallist@4.0.0: {}
-=======
-  /yallist@4.0.0:
-    resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
-    dev: false
 
-  /yamljs@0.3.0:
-    resolution: {integrity: sha512-C/FsVVhht4iPQYXOInoxUM/1ELSf9EsgKH34FofQOp6hwCPrW4vG4w5++TED3xRUo8gD7l0P1J1dLlDYzODsTQ==}
-    hasBin: true
+  yamljs@0.3.0:
     dependencies:
       argparse: 1.0.10
       glob: 7.2.3
-    dev: false
->>>>>>> 2916bc9 (add API documentation)

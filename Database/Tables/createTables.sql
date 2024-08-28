@@ -33,34 +33,33 @@ SELECT * FROM position
 ---create  user table 
 CREATE TABLE tbl_user(
     user_id VARCHAR(300) PRIMARY KEY,
-    firstname VARCHAR(MAX)  DEFAULT 'no firstname',
-    middlename VARCHAR (MAX) DEFAULT 'no middlename',
-    lastname VARCHAR (MAX) DEFAULT 'no lastname',
-    identification_number VARCHAR(300)  UNIQUE,
+    firstname VARCHAR(MAX) DEFAULT 'no firstname',
+    middlename VARCHAR(MAX) DEFAULT 'no middlename',
+    lastname VARCHAR(MAX) DEFAULT 'no lastname',
+    identification_number VARCHAR(300) UNIQUE,
     gender VARCHAR(MAX) DEFAULT 'no gender',
     marital_status VARCHAR(MAX) DEFAULT 'not applicable',
-    date_of_birth DATETIME DEFAULT 0,
-    email VARCHAR (300)   UNIQUE,
-    phone_number INT DEFAULT 0,
+    date_of_birth DATETIME DEFAULT NULL, 
+    email VARCHAR(300) UNIQUE,
+    phone_number VARCHAR(15) DEFAULT '0', 
     place_of_residence VARCHAR(MAX) DEFAULT 'no residence',
     course_of_study VARCHAR(MAX) DEFAULT 'not applicable',
-    institution VARCHAR (MAX) DEFAULT 'not applicable',
-    graduation_date DATETIME DEFAULT 0,
-    employed_on DATETIME DEFAULT 0,
-    role VARCHAR (MAX) DEFAULT 'user',
+    institution VARCHAR(MAX) DEFAULT 'not applicable',
+    graduation_date DATETIME DEFAULT NULL, 
+    employed_on DATETIME DEFAULT NULL,  
+    role VARCHAR(MAX) DEFAULT 'user',
     password VARCHAR(MAX) DEFAULT 'no password',
     language VARCHAR(MAX) DEFAULT 'no language',
-    technical VARCHAR (MAX) DEFAULT 'no technicl skill',
+    technical VARCHAR(MAX) DEFAULT 'no technical skill',
     isWelcomed INT DEFAULT 0,
     isPasswordChange INT DEFAULT 0,
     isDeleted INT DEFAULT 0,
     person_name VARCHAR(MAX) DEFAULT 'no name',
-    emergency_phone_number INT DEFAULT 'no number',
+    emergency_phone_number VARCHAR(15) DEFAULT '0',
     relationship VARCHAR(MAX) DEFAULT 'no relationship',
-    position_id VARCHAR(300) FOREIGN KEY REFERENCES position (position_id),
-    schedule_id  VARCHAR(300) FOREIGN KEY REFERENCES schedule(schedule_id)
-
-)
+    position_id VARCHAR(300) FOREIGN KEY REFERENCES position(position_id),
+    schedule_id VARCHAR(300) FOREIGN KEY REFERENCES schedule(schedule_id)
+);
 
 --confirm creation of table user
 

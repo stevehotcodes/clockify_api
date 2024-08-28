@@ -26,7 +26,8 @@ let appPool
 let poolRequest
 
 try {
-    appPool=await mssql.connect(dbConfig)
+    appPool=await mssql.connect(dbConfig) 
+    console.log(appPool)
     poolRequest=()=>appPool.request()
     if(appPool){
         console.log("Connected to the database");
