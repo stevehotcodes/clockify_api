@@ -14,6 +14,8 @@ const { SQL_USER,SQL_PASSWORD,SQL_SERVER,SQL_DB,
         database:SQL_DB || 'Clockify',
         server:SQL_SERVER || 'localhost',        //SQL_USER='sa'
         password:SQL_PASSWORD || 'Omosh123',
+        requestTimeout: 30000, // Increase the timeout value (in milliseconds)
+        connectionTimeout: 30000,
         // port:Number(SQL_SERVER_PORT),
         options:{
             encrypt:Boolean(SQL_ENCRYPT) || false,

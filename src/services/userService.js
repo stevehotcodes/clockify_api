@@ -159,12 +159,11 @@ export const findByCredentialsService = async (user) => {
             console.log("these are user's details",userFoundResponse)
         if (userFoundResponse.recordset.length>0) {
 
-
             const userFound = userFoundResponse.recordset[0];
             const hashedPassword = userFound.password;
 
             const isPasswordMatch = await bcrypt.compare(password, hashedPassword)
-        
+          console.log('password check',isPasswordMatch)
 
             if (!isPasswordMatch) {
                 return { error: 'Password Mismatch' };
@@ -181,13 +180,11 @@ export const findByCredentialsService = async (user) => {
                     },
 
                     process.env.SECRET || 'jeyeydgyd', { expiresIn: "12h" } 
-                );
+                 );
                 const { password, phone_number,email,marital_status,technical,emergency_person_name,relationship,identification_number,course_of_study,...user } = userFoundResponse.recordset[0];
                 console.log('user details:',user)
                 return { user, token: `JWT ${token}` };
             } 
-
-
 
         } else {
             return { error: 'Invalid Credentials' };

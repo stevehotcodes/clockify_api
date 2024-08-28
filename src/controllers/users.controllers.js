@@ -39,14 +39,15 @@ export const registerNewUser=async(req,res)=>{
           }
           
           const registeredEmail=await findUserByEmailService(newUser.email)
+          console.log("email form the db", registeredEmail)
         
           if(registeredEmail.length > 0 && registeredEmail[0].email === newUser.email){ 
             sendBadRequest(res,`Email is already registered`) 
            } 
           else{
             const response=await registerNewUserService(newUser, em_id,sk_id)
-     
-            if(response&&response.result1){
+          
+            if(response.recordset[0].Result==='Success'){
       
                  sendCreated(res,`${newUser.firstname} has been registered successfully`)
                  sendWelcomeMail(newUser.email,newUser.password)
