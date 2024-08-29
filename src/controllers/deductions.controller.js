@@ -14,10 +14,10 @@ export const createNewDeduction=async(req,res)=>{
             user_id:req.body.user_id
          }
 
-         //check if the user exists
+       
 
          const user=await getOneEmployeeService(deduction.user_id)
-         console.log(user)
+         
          if(user.length){
             const response=await createNewDeductionService(deduction)
             console.log(response)
@@ -31,7 +31,7 @@ export const createNewDeduction=async(req,res)=>{
          }
         
     } catch (error) {
-        console.log(error)
+       
         sendServerError(res,error.message)
     }
 }
@@ -63,7 +63,7 @@ export const editDeductionforAnEmployee=async(req,res)=>{
          }
 
          const response=await editDeductionforAnEmployeeService(user_id,editedDeductionsDetails);
-         console.log(response)
+        
 
          if(response>0)
          {

@@ -62,18 +62,18 @@ app.use('/api',photoRouter)
 cron.schedule('*/10 * * * * *', async() => {
 
     // logger.info("sending email after every five seconds ...............");
-//    await  sendWelcomeEmailToNewUsers()
-    // logger.info("generate payroll.........")
-    // logger.info('generating payroll.............')
-    //   await generatePayRoll(req,res)
-    // try {
-    //     console.log('Generating payroll...');
-    //     // Call your function to generate payroll
-    //     const payrollResult = await generatePayRoll();
-    //     console.log('Payroll generated:', payrollResult);
-    // } catch (error) {
-    //     console.error('Error generating payroll:', error);
-    // }
+// //    await  sendWelcomeEmailToNewUsers()
+//     logger.info("generate payroll.........")
+//     logger.info('generating payroll.............')
+//     //   await generatePayRoll(req,res)
+//     try {
+//         console.log('Generating payroll...');
+        
+//         const payrollResult = await generatePayRoll();
+//         console.log('Payroll generated:', payrollResult);
+//     } catch (error) {
+//         console.error('Error generating payroll:', error);
+//     }
 
 });
 

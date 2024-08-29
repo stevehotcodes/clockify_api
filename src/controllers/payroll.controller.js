@@ -29,7 +29,7 @@ export  const generatePayRoll=async(req,res)=>{
             
                 const payrollData={gross_salary:employee.gross_salary,totalDeductions,totaloverTime,totalcashAdvances,user_id:employee.user_id,netPay}
             
-
+                 console.log("payroll data",payrollData)
                 const employeePayroll=await createPayrollforanService(payrollData)
                 console.log("employeePayroll response",employeePayroll)
 
@@ -39,11 +39,10 @@ export  const generatePayRoll=async(req,res)=>{
             }
             console.log("this is the payroll", payroll)
 
-            
-            return res.status(200).json(payroll)
-        
+
+
     } catch (error) {
-        // return res.status(500).json("Error in creating the payroll")
+
         console.log(error)
     }
 }

@@ -16,8 +16,7 @@ export const createNewPosition=async(req, res)=>{
 
           console.log(positionDetails)
            const position=await getPositionByNameService(positionDetails.position_description)
-           console.log(position)
-          
+                    
            if(position.length>0){
                     if( position[0].position_description===positionDetails.position_description){
                         sendBadRequest(res,`${positionDetails.position_description} position already exists `)
@@ -31,7 +30,7 @@ export const createNewPosition=async(req, res)=>{
                     }
                 else{
                         const response=await createNewPositionService(positionDetails)
-                        logger.info(response)
+                       
                         if(response.rowsAffected>0){
                             sendCreated(res,`${req.body.position_description} created successfully`)
                         }

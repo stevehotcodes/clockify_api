@@ -39,7 +39,7 @@ export const registerNewUser=async(req,res)=>{
           }
           
           const registeredEmail=await findUserByEmailService(newUser.email)
-          console.log("email form the db", registeredEmail)
+    
         
           if(registeredEmail.length > 0 && registeredEmail[0].email === newUser.email){ 
             sendBadRequest(res,`Email is already registered`) 
@@ -84,7 +84,6 @@ export const getAllEmployees=async(req,res)=>{
 
 export const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    console.log("login req body",req.body)
     const { error } = userLoginValidator({ email, password });
     if (error) {
         return res.status(400).send(error.details[0].message);
@@ -95,10 +94,6 @@ export const loginUser = async (req, res) => {
             if (userResponse.error) {
                 return res.status(400).json(userResponse.error)
             } else {
-
-              console.log(userResponse)
-            //   return   res.status(200).send(userResponse);
-                console.log(userResponse)
                return  res.status(200).json({user:userResponse.user, token:userResponse.token});
 
             }
@@ -116,7 +111,6 @@ export const getLoggedInUser=async(req,res)=>{
 
            console.log(user)
            return  res.status(200).json(user)     
-
 
     }
     catch(error){
@@ -136,25 +130,13 @@ export const updateUser=async(req,res)=>{
        marital_status:req.body.marital_status,
        password:req.body.password
        
-
     }
 
-    console.log(updateUserDetails)
-
-    console.log("user_id",user_id)
-    // 
-  
 
     try {
         const salt =await bcrypt.genSalt(10);
-        console.log('salt',salt)
         const hashedPassword=await bcrypt.hash(updateUserDetails.password,salt);
-        console.log("hashpasswordd",hashedPassword)
 
-        
-         
-
-      
          const  formattedUserDetails={
             firstname:req.body.firstname,
             middlename:req.body.middlename,
@@ -164,7 +146,7 @@ export const updateUser=async(req,res)=>{
          }
 
          const response=await updateUserService(formattedUserDetails,user_id)
-         console.log(response)
+   
          if(response.rowsAffected>0){
 
             return res.status(200).json({message:`employee updated successfully`})
@@ -172,11 +154,9 @@ export const updateUser=async(req,res)=>{
          else{
             sendServerError(res,'Error in updating the user details')
          }
-        // sendSuccess(res,response)
-           
+               
         
     } catch (error) {
-        console.log(error)
         sendServerError(res,error.message)
     }
 }
@@ -205,9 +185,9 @@ export const editScheduleforAnEmployee=async(req,res)=>{
             schedule_id:req.body.schedule_id
          }
          const result=await editScheduleforAnEmployeeService(scheduleDetails)
-         console.log(result)
+         
          if(result>0){
-            console.log(result)
+           
             sendSuccess(res,"update successful")
          }
          else{
@@ -216,7 +196,7 @@ export const editScheduleforAnEmployee=async(req,res)=>{
          
         
     } catch (error) {
-        console.log(error)
+        
         sendServerError(res,error.message)
     }
 }
@@ -243,7 +223,6 @@ export const editPositionforAnEmployee=async(req,res)=>{
          
         
     } catch (error) {
-        console.log(error)
         sendServerError(res,error.message)
     }
 }

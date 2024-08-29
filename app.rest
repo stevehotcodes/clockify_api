@@ -1,3 +1,0 @@
-
-### create new user 
-POST http://localhost:3000/api/user

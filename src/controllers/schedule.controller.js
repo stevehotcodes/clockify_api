@@ -13,8 +13,6 @@ export const createNewSchedule=async(req,res)=>{
                 schedule_description:req.body.schedule_description
            }
 
-           logger.info(newSchedule)
-
            const schedule=await getAShiftByDescriptionService(newSchedule.schedule_description)
           
            if(schedule.length>0){
@@ -22,7 +20,7 @@ export const createNewSchedule=async(req,res)=>{
            }
            else{
               const response=await createNewScheduleService(newSchedule)
-              logger.info(response)
+              
               if(response.rowsAffected>0){
               sendCreated(res,`${newSchedule.schedule_description} has been created successfully`)
               }
@@ -30,8 +28,7 @@ export const createNewSchedule=async(req,res)=>{
            }
         
     } catch (error) {
-        logger.info(error)
-        sendServerError(res,error)
+          sendServerError(res,error)
     }
 }
 

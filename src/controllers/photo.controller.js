@@ -13,8 +13,7 @@ export const uploadPhoto=async(req,res)=>{
           }
 
           const uploadResponse=await uploadPhotoService(photoDetails, user_id)
-          // console.log(uploadResponse)
-
+          
          if(uploadResponse.rowsAffected>0){ sendCreated(res, 'photo uploaded successfully')}
 
     }

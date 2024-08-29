@@ -7,9 +7,12 @@ CREATE TABLE schedule(
     schedule_id VARCHAR(300) PRIMARY KEY,
     in_time TIME,
     out_time TIME,
-     created_at DATETIME DEFAULT GETDATE()
+     created_at DATETIME DEFAULT GETDATE(),
+     schedule_description VARCHAR(300)
     
 )
+
+
 
 --confirm creation of schedule table
 SELECT * FROM schedule 

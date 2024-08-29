@@ -10,13 +10,12 @@ export const createCashAdvances=async(req,res)=>{
              amount:req.body.amount
 
          }
-         console.log(cashAdvances)
-
+        
          const user=await getOneEmployeeService(cashAdvances.user_id)
-         console.log('user', user)
+       
          if(user.length){
             const response=await createCashAdvancesService(cashAdvances)
-            console.log(response)
+         
             if(response.rowsAffected>0){
                 sendCreated(res, `Cash advance for employee id${cashAdvances.user_id} has been created successfully`)
             }
@@ -54,11 +53,11 @@ export const editcashAdvances=async(req,res)=>{
         const {amount}=req.body
         
         const user=await getUserById(user_id);
-        console.log(user)
+        
         if(user[0]){   
             const response=await editcashAdvanceService(amount, user_id);
             if(response.rowsAffected>0){
-                console.log(response)
+                
                 sendSuccess(res,`cash advance for ${user[0].firstname} ${user[0].lastname} has been edited successfully`)
             }
 
@@ -66,10 +65,6 @@ export const editcashAdvances=async(req,res)=>{
         else{
             sendNotFound(res,`records of the employee not found`)
         }
-
-         
-
-
         
     } catch (error) {
         sendServerError(res,error.message)

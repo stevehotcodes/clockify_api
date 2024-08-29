@@ -7,7 +7,7 @@ import { getOneEmployeeService, getUserById } from "../services/userService.js"
 export const getAllOvertimeRecord=async(req,res)=>{
     try {
           const response =await getAllOvertimeService()
-          console.log(response)
+          
           if(response.length){
 
             return res.status(200).json(response)
@@ -76,7 +76,6 @@ export const editOvertimeforAnEmployee=async(req,res)=>{
           }
         
     } catch (error) {
-        console.log(error)
-        sendServerError(res,error.message)
+          sendServerError(res,error.message)
     }
 }

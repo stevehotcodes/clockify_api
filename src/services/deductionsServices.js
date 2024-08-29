@@ -4,10 +4,6 @@ import  * as uuid from 'uuid'
 
 
 
-
-
-
-
 export const createNewDeductionService=async(deductions)=>{
     try{
          const deduction_id=uuid.v4()
@@ -89,7 +85,6 @@ export const editDeductionforAnEmployeeService=async(user_id, deductions)=>{
         
          const { description, amount } =deductions
          const response=await poolRequest()
-        //  .input('deduction_id',mssql.VarChar,deductions.deduction_id)
          .input('description',mssql.VarChar,description)
          .input('amount',mssql.Decimal,amount)
          .input('user_id',mssql.VarChar,user_id)
